@@ -6,13 +6,14 @@ from copy import deepcopy
 
 def main():
     listok = [random.randint(0, 10) for x in range(10)]
-
+    first_max_element = max(listok)
+    
     copied_list = deepcopy(listok)
     copied_list.sort(reverse=True)
 
     for index in range(0, len(copied_list)):
         max_element = copied_list[index]
-        if index == 0 or max_element == 9:
+        if index == 0 or max_element == first_max_element:
             continue
         else:
             break
