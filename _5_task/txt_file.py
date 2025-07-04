@@ -6,7 +6,7 @@
 def sum_txt(*,
             file_name: str) -> int:
     summa = 0
-    with open("./" + file_name, "r") as file:
+    with open(file_name, "r") as file:
         info = file.read()
         for element in info:
             if element.isdigit():
@@ -16,7 +16,7 @@ def sum_txt(*,
 
 
 if __name__ == "__main__":
-    file_name = "file.txt"
+    file_name = "C:/Users/nikit/Documents/GitHub/pitonchik/_5_task/file.txt"
     summa = sum_txt(file_name=file_name)
 
     print(summa)
