@@ -16,8 +16,7 @@ def frst_up(*,
     helper = ''
     listek = []
     for element in listok:
-        helper += element[0:1].upper()
-        helper += element[1:-1]
+        helper = element.capitalize()
         listek.append(helper)
         helper = ''
 
