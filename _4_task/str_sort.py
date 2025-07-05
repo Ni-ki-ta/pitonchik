@@ -13,12 +13,9 @@ def sort_list_str(*,
 
 def frst_up(*,
             listok: list[str]) -> list[str]:
-    helper = ''
     listek = []
     for element in listok:
-        helper = element.capitalize()
-        listek.append(helper)
-        helper = ''
+        listek.append(element.capitalize())
 
     return listek
 
