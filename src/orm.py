@@ -1,19 +1,20 @@
-from sqlalchemy import URL, text, insert, select
+from sqlalchemy import select
 from models import PeopleOrm, PetOrm, AnimalType#, metadata_obj,
-from database import engine, session_factory, Base
+#from database import engine, session_factory, Base
+from database import engine_postgres, session_factory_postgres, Base
 
 
 class SyncORM:
     @staticmethod
     def create_tables():
-        engine.echo = False
-        Base.metadata.drop_all(engine)
-        Base.metadata.create_all(engine)
-        engine.echo = True
+        engine_postgres.echo = False
+        Base.metadata.drop_all(engine_postgres)
+        Base.metadata.create_all(engine_postgres)
+        engine_postgres.echo = True
 
     @staticmethod
     def insert_data():
-        with session_factory() as session:
+        with session_factory_postgres() as session:
             person = PeopleOrm(
                 name='Иван Иванов',
                 age=30,
@@ -32,7 +33,7 @@ class SyncORM:
 
     @staticmethod
     def select_people():
-        with session_factory() as session:
+        with session_factory_postgres() as session:
             query = select(PeopleOrm)
             result = session.execute(query)
             people = result.scalars().all()
@@ -40,7 +41,7 @@ class SyncORM:
 
     @staticmethod
     def update_people(person_id: int = 2, new_name: str = "Ivan"):
-        with session_factory() as session:
+        with session_factory_postgres() as session:
             person_ivan = session.get(PeopleOrm, person_id)
             person_ivan.name = new_name
             session.add(person_ivan)

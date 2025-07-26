@@ -1,6 +1,6 @@
 import datetime
 from typing import Optional, Annotated
-from sqlalchemy import text, Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import text, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.database import Base
 import enum

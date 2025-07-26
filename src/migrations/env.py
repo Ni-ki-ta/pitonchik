@@ -7,8 +7,8 @@ from alembic import context
 
 from src.config import settings
 
-from src.database import Base
 from src.models import PeopleOrm, PetOrm # noqa
+from src.database import Base
 
 
 config = context.config
@@ -16,10 +16,11 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-print(settings.DATABASE_URL_psycopg)
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_psycopg)
+print(settings.DATABASE_URL_psycopg_postgres)
+#config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_psycopg)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_psycopg_postgres)
 
-print("Tables in Base.metadata:", list(Base.metadata.tables.keys()))
+#print("Tables in Base.metadata:", list(Base.metadata.tables.keys()))
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
