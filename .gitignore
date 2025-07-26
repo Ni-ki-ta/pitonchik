@@ -1,1 +1,4 @@
 .idea
+src/.env
+venv
+**\__pycache__
