@@ -1,4 +1,8 @@
+from fastapi import Depends
 from sqlalchemy import create_engine
+from typing import Annotated
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import declarative_base
 
 from sqlalchemy.orm import sessionmaker
@@ -14,11 +18,24 @@ from src.config import settings
 #
 #session_factory = sessionmaker(engine)
 
-engine_postgres = create_engine(
+# engine_postgres = create_engine(
+#     url=settings.DATABASE_URL_psycopg_postgres,
+#     echo=True,
+# )
+
+async_engine_postgres = create_async_engine(
     url=settings.DATABASE_URL_psycopg_postgres,
     echo=True,
 )
 
-session_factory_postgres = sessionmaker(engine_postgres)
+#session_factory_postgres = sessionmaker(engine_postgres)
+
+new_session = async_sessionmaker(async_engine_postgres, expire_on_commit=False)
+async def get_session():
+    async with new_session() as session:
+        yield session
+
+SessionDep = Annotated[AsyncSession, Depends(get_session)]
 
 Base = declarative_base()
+

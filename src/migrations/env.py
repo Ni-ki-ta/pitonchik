@@ -16,7 +16,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-print(settings.DATABASE_URL_psycopg_postgres)
+#print(settings.DATABASE_URL_psycopg_postgres)
 #config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_psycopg)
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL_psycopg_postgres)
 

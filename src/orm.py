@@ -1,7 +1,8 @@
 from sqlalchemy import select
 from models import PeopleOrm, PetOrm, AnimalType#, metadata_obj,
 #from database import engine, session_factory, Base
-from database import engine_postgres, session_factory_postgres, Base
+#from database import engine_postgres, session_factory_postgres, Base
+from database import async_engine_postgres as engine_postgres, new_session as session_factory_postgres, Base
 
 
 class SyncORM:
