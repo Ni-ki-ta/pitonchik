@@ -16,7 +16,7 @@ def sum_txt(*,
 
 
 if __name__ == "__main__":
-    file_name = "C:/Users/nikit/Documents/GitHub/pitonchik/_5_task/file.txt"
+    file_name = "/tasks/_5_task/file.txt"
     summa = sum_txt(file_name=file_name)
 
     print(summa)

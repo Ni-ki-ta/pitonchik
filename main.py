@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from routers.people import people_router
 from routers.pets import pets_router
 
-from src.database import async_engine_postgres, Base, SessionDep
+from src.database import async_engine_postgres, Base
 
 
 app = FastAPI()
