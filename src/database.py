@@ -1,6 +1,6 @@
 from fastapi import Depends
 from sqlalchemy import create_engine
-from typing import Annotated
+from typing import Annotated, AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import declarative_base
@@ -30,12 +30,12 @@ async_engine_postgres = create_async_engine(
 
 #session_factory_postgres = sessionmaker(engine_postgres)
 
-new_session = async_sessionmaker(async_engine_postgres, expire_on_commit=False)
-async def get_session():
+new_session = async_sessionmaker(async_engine_postgres)
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     async with new_session() as session:
         yield session
 
-SessionDep = Annotated[AsyncSession, Depends(get_session)]
+SessionDep = Annotated[AsyncSession, Depends(get_async_session)]
 
 Base = declarative_base()
 
