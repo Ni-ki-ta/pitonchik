@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, ConfigDict
 from src.models import AnimalType
 from datetime import date
 
@@ -27,3 +27,12 @@ class PeopleSchema(PeopleAddSchema):
 
     class Config:
         from_attributes = True
+
+
+class UserSchema(BaseModel):
+    model_config = ConfigDict(strict=True)
+
+    username: str
+    password: bytes
+    email: EmailStr | None = None
+    active: bool = True

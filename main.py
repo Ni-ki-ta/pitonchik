@@ -3,6 +3,9 @@ import sys
 
 import uvicorn
 from fastapi import FastAPI
+
+from auth.auth import jwt_router
+from routers.login import log_router
 from routers.people import people_router
 from routers.pets import pets_router
 
@@ -10,8 +13,10 @@ from src.database import async_engine_postgres, Base
 
 
 app = FastAPI()
+app.include_router(log_router)
 app.include_router(people_router)
 app.include_router(pets_router)
+app.include_router(jwt_router)
 
 
 async def create_tables():
