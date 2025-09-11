@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
-from routers.sheme import PeopleAddSchema, PeopleSchema
-from dependencies import get_people_service
+from routers.shemas.sheme import PeopleAddSchema, PeopleSchema
+from dependencies.dependencies import get_people_service
 from crud.people import PeopleService
 from typing import Annotated
 

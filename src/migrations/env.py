@@ -7,7 +7,8 @@ from alembic import context
 
 from src.config import settings
 
-from src.models import PeopleOrm, PetOrm # noqa
+from src.models import PeopleOrm, PetOrm, User # noqa
+from src.access_token import AccessToken # noqa
 from src.database import Base
 
 

@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from src.models import AnimalType
 from datetime import date
 
+
 class PetAddSchema(BaseModel):
     name: str | None = None
     animal_type: AnimalType

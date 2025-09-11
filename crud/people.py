@@ -1,8 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from src.models import PeopleOrm
-from routers.sheme import PeopleAddSchema
-from sqlalchemy.orm import joinedload, selectinload
+from routers.shemas.sheme import PeopleAddSchema
+from sqlalchemy.orm import selectinload
 
 
 class PeopleService:

@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
 
-from routers.sheme import PetAddSchema, PetSchema
+from routers.shemas.sheme import PetAddSchema, PetSchema
 from src.models import PetOrm, PeopleOrm
 from src.database import SessionDep
 

@@ -3,13 +3,20 @@ import sys
 
 import uvicorn
 from fastapi import FastAPI
+
+from messages import mess_router
 from routers.people import people_router
 from routers.pets import pets_router
+from routers.auth import auth_router
+from routers.users import users_router
 
 from src.database import async_engine_postgres, Base
 
 
 app = FastAPI()
+app.include_router(auth_router)
+app.include_router(users_router)
+app.include_router(mess_router)
 app.include_router(people_router)
 app.include_router(pets_router)
 

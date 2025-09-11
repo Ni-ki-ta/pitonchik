@@ -1,11 +1,17 @@
 import datetime
-from typing import Optional, Annotated
+from typing import Optional, Annotated, TYPE_CHECKING
+
+from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from sqlalchemy import text, ForeignKey
+if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from src.database import Base
 import enum
 
 intpk = Annotated[int, mapped_column(primary_key=True)]
+
+UserIdType = int
 
 
 class PeopleOrm(Base):
@@ -33,7 +39,14 @@ class PetOrm(Base):
     owner: Mapped["PeopleOrm"] = relationship(back_populates="pets")
 
 
+class User(Base, SQLAlchemyBaseUserTable[UserIdType]):
+    __tablename__ = "users"
 
+    id: Mapped[intpk]
+
+    @classmethod
+    def get_db(cls, session: "AsyncSession"):
+        return SQLAlchemyUserDatabase(session, cls)
 
 
 # metadata_obj = MetaData()

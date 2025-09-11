@@ -1,9 +1,12 @@
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
-import os
-from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())  # Ищет .env в текущей и родительских папках
-DB_URL = os.getenv('DB_URL')
+
+class AccessToken(BaseModel):
+    lifetime_seconds: int = 3600
+    reset_password_token_secret: str
+    verification_token_secret: str
+
 
 class Settings(BaseSettings):
     DB_NAME: str
@@ -14,6 +17,19 @@ class Settings(BaseSettings):
     DB_USER: str
     DB_PASS: str
 
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_nested_delimiter="__",
+        #populate_by_name=True,
+        case_sensitive=False,
+    )
+    reset_password_token_secret: str
+    verification_token_secret: str
+    lifetime_seconds: int = 3600
+
+    bearer_token_url: str = "auth/login"
+    #ACCESS_TOKEN: AccessToken
+
     @property
     def DATABASE_URL_psycopg(self):
         return f"sqlite:///{self.DB_NAME}"
@@ -21,8 +37,6 @@ class Settings(BaseSettings):
     @property
     def DATABASE_URL_psycopg_postgres(self):
         return f"postgresql+psycopg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME_q}"
-
-    model_config = SettingsConfigDict(env_file=DB_URL)
 
 
 settings = Settings()
